@@ -9,8 +9,22 @@ public class DrawPanel extends JPanel {
     public void paint(Graphics g) {
         Graphics2D gr = (Graphics2D) g;
         int rPizza = getHeight() / 4;
+        int xPizza = getWidth() / 2;
+        int yPizza = getHeight() / 2;
+        int countOfOlives = 100;
+        int widthOfOlive = 15;
         drawBackground(gr, new Color(208, 128, 128));
-        drawPizzaBasis(gr, new Color(255, 204, 153), getWidth() / 2 - rPizza, getHeight() / 4, rPizza);
+        drawPizzaBasis(gr, new Color(255, 204, 153), xPizza, yPizza, rPizza);
+        for (int i = 0; i < countOfOlives; i++) {
+            double r = rPizza * Math.sqrt(Math.random()) - widthOfOlive;
+            double theta = 2 * Math.PI * Math.random();
+            double x = r * Math.cos(theta);
+            double y = r * Math.sin(theta);
+            drawOlive(gr, new Color(102, 153, 51), new Color(255, 204, 153), (int) x + xPizza, (int) y + yPizza, widthOfOlive);
+        }
+
+
+
 
     }
 
@@ -22,14 +36,23 @@ public class DrawPanel extends JPanel {
 
     private void drawPizzaBasis(Graphics2D gr, Color color, int x, int y, int r) {
         gr.setColor(color);
-        gr.fillOval(x, y, 2 * r, 2 * r);
+        gr.fillOval(x - r, y - r, 2 * r, 2 * r);
     }
 
-    /* private  void drawSmokedSausage (Graphics2D gr, Color colorOfMeat, Color colorOfFat, int x, int y, int rOfMeat, int rOfFat ) {
-         gr.setColor(colorOfMeat);
-         gr.fillOval(x,y,2*rOfMeat, 2*rOfMeat);
-         gr.fillOval();
-     }*/
+    private void drawSmokedSausage(Graphics2D gr, Color colorOfMeat, Color colorOfFat, int x, int y, int rOfMeat, int rOfFat) {
+        gr.setColor(colorOfMeat);
+        gr.fillOval(x - rOfMeat, y - rOfMeat, 2 * rOfMeat, 2 * rOfMeat);
+        gr.setColor(colorOfFat);
+        for (int i = 0; i < 25; i++) {
+            double r = rOfMeat * Math.sqrt(Math.random()) - 2 * rOfFat;
+            double theta = 2 * Math.PI * Math.random();
+            double xOfFat = r * Math.cos(theta);
+            double yOfFat = r * Math.sin(theta);
+            gr.fillOval((int) xOfFat + x, (int) yOfFat + y, 2*rOfFat, 2*rOfFat);
+        }
+
+    }
+
     private void drawOlive(Graphics2D gr, Color colorOfOlive, Color colorOfOliveCentre, int x, int y, int width) {
         gr.setColor(colorOfOlive);
         int widthOfOlive = width;
