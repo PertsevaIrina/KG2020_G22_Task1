@@ -13,6 +13,9 @@ public class DrawPanel extends JPanel {
         int yPizza = getHeight() / 2;
         int countOfOlives = 100;
         int widthOfOlive = 15;
+        int countOfSmokeSausage = 10;
+        int rOfSmokedSausage = 30;
+        int rOfFat = 3;
         drawBackground(gr, new Color(208, 128, 128));
         drawPizzaBasis(gr, new Color(255, 204, 153), xPizza, yPizza, rPizza);
         for (int i = 0; i < countOfOlives; i++) {
@@ -21,6 +24,13 @@ public class DrawPanel extends JPanel {
             double x = r * Math.cos(theta);
             double y = r * Math.sin(theta);
             drawOlive(gr, new Color(102, 153, 51), new Color(255, 204, 153), (int) x + xPizza, (int) y + yPizza, widthOfOlive);
+        }
+        for (int i = 0; i < countOfSmokeSausage; i++) {
+            double r = rPizza * Math.sqrt(Math.random()) - rOfSmokedSausage;
+            double theta = 2 * Math.PI * Math.random();
+            double x = r * Math.cos(theta);
+            double y = r * Math.sin(theta);
+            drawSmokedSausage(gr, new Color(204,102,102), new Color ( 255, 204,204),(int)x + xPizza, (int)y + yPizza, rOfSmokedSausage, rOfFat);
         }
 
 
